@@ -1,4 +1,4 @@
-export const COURSE_ID = "CS61B";
+export const COURSE_ID = "EECS 151";
 
 export const EMAIL_REGEX =
   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -19,5 +19,8 @@ export const STARTER_DEBUGGING_TICKET_DESCRIPTION =
 
 export const STARTER_CONCEPTUAL_TICKET_DESCRIPTION =
   "Conceptual question about [this concept]";
+
+export const STARTER_CHECKOFF_TICKET_DESCRIPTION =
+  "N/A";
 
 export const SITE_BASE_TITLE = "Office Hours Queue";

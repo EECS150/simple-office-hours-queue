@@ -84,13 +84,6 @@ export const Navbar = () => {
 
         <Flex alignItems="center" display={["none", "none", "flex", "flex"]}>
           <Stack direction="row" spacing={5} alignItems="center">
-            {session?.user?.role === UserRole.STAFF && (
-              <Link href={personalQueueLink}>
-                <Text fontWeight="semibold" className="hover-cursor">
-                  Personal Queue
-                </Text>
-              </Link>
-            )}
             {session?.user && (
               <Link href="/activity">
                 <Text fontWeight="semibold" className="hover-cursor">

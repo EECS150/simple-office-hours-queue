@@ -6,6 +6,11 @@ import {
   FormControl,
   FormLabel,
   Input,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   Radio,
   RadioGroup,
   Switch,
@@ -20,6 +25,7 @@ import Router from "next/router";
 import { useEffect, useState } from "react";
 import { TicketWithNames } from "../../server/trpc/router/ticket";
 import {
+  STARTER_CHECKOFF_TICKET_DESCRIPTION,
   STARTER_CONCEPTUAL_TICKET_DESCRIPTION,
   STARTER_DEBUGGING_TICKET_DESCRIPTION,
 } from "../../utils/constants";
@@ -160,11 +166,14 @@ const CreateTicketForm = (props: CreateTicketFormProps) => {
     if (newVal === TicketType.DEBUGGING) {
       setDescription(STARTER_DEBUGGING_TICKET_DESCRIPTION);
       setIsPublic(false);
-    } else {
+    } else if (newVal === TicketType.CONCEPTUAL) {
       setDescription(STARTER_CONCEPTUAL_TICKET_DESCRIPTION);
       if (arePublicTicketsEnabled) {
         setIsPublic(true);
       }
+    } else {
+      setDescription(STARTER_CHECKOFF_TICKET_DESCRIPTION);
+      setIsPublic(false);
     }
   };
 
@@ -183,7 +192,7 @@ const CreateTicketForm = (props: CreateTicketFormProps) => {
       return;
     }
 
-    if (!assignment || !location || !ticketType) {
+    if (!assignment || !ticketType) {
       toast({
         title: "Error",
         description: "Please select an assignment and location",
@@ -219,7 +228,7 @@ const CreateTicketForm = (props: CreateTicketFormProps) => {
       .mutateAsync({
         description: description.trim(),
         assignmentId: assignment.id,
-        locationId: location.id,
+        locationId: 1,
         locationDescription: locationDescription.trim(),
         personalQueueName: personalQueue?.name,
         ticketType,
@@ -283,10 +292,6 @@ const CreateTicketForm = (props: CreateTicketFormProps) => {
           </FormControl>
           <FormControl isRequired isDisabled={ticketType === undefined}>
             <FormLabel>Description</FormLabel>
-            <Text hidden={ticketType !== TicketType.CONCEPTUAL} mb={2}>
-              Please make sure staff does not have to look at your code to
-              answer your question.
-            </Text>
             <Textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -304,23 +309,20 @@ const CreateTicketForm = (props: CreateTicketFormProps) => {
             />
           </FormControl>
           <FormControl mt={6} isRequired>
-            <FormLabel>Location</FormLabel>
-            <Select
-              value={location}
-              onChange={(val) => setLocation(val ?? undefined)}
-              options={locationOptions}
-            />
-          </FormControl>
-          <FormControl mt={6} isRequired={isPublic}>
-            <FormLabel>Briefly describe where you are</FormLabel>
-            <Input
+            <FormLabel>Lab Station (c111-??) </FormLabel>
+            <NumberInput 
               value={locationDescription}
-              onChange={(e) => setLocationDescription(e.target.value)}
-              type="text"
-              placeholder="Back right corner of the room"
-              name="locationDescription"
-              maxLength={140}
-            />
+              onChange={(v) => setLocationDescription(v)}
+              defaultValue={15}
+              min={1}
+              max={20}
+            >
+              <NumberInputField />
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            </NumberInput>
           </FormControl>
           <FormControl
             mt={6}

@@ -220,19 +220,9 @@ const InnerTicketInfo = (props: InnerTicketInfoProps) => {
           {ticket.assignmentName}
         </Tag>
         <Tag p={2.5} size="md" colorScheme="orange" borderRadius={5}>
-          {ticket.locationName}
+          {`c111-${ticket.locationDescription}`}
         </Tag>
       </Box>
-
-      <Text hidden={!ticket.locationDescription}>
-        <span className="semibold">Location Description:</span>
-      </Text>
-
-      <Flex justifyContent="center">
-        <Text fontWeight="semibold" mt={2}>
-          {ticket.locationDescription}
-        </Text>
-      </Flex>
 
       <Text fontWeight="semibold">
         {ticket.isPublic ? "Public" : "Private"} ticket

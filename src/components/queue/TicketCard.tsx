@@ -239,7 +239,7 @@ const TicketCard = (props: TicketCardProps) => {
             {ticket.assignmentName}
           </Tag>
           <Tag p={2.5} size="lg" colorScheme="orange" borderRadius={5}>
-            {ticket.locationName}
+            {`c111-${ticket.locationDescription}`}
           </Tag>
         </Box>
         <Flex flexDirection="column">

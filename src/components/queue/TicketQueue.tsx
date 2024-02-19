@@ -164,9 +164,7 @@ const TicketQueue = (props: TicketQueueProps) => {
 
   const setTabs = (): TabType[] => {
     const tabs: TabType[] = [TicketStatus.OPEN, TicketStatus.ASSIGNED];
-    if (userRole === UserRole.STUDENT) {
-      tabs.unshift("Public");
-    } else {
+    if (userRole !== UserRole.STUDENT) {
       if (isPendingStageEnabled) {
         tabs.push(TicketStatus.PENDING);
       }

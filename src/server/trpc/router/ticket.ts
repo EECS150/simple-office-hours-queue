@@ -95,16 +95,6 @@ export const ticketRouter = router({
         return;
       }
 
-      const location = await ctx.prisma.location.findUnique({
-        where: {
-          id: input.locationId,
-        },
-      });
-
-      if (!location || !location.isActive) {
-        return;
-      }
-
       const publicTicketsEnabled = await ctx.prisma.settings.findUnique({
         where: {
           setting: SiteSettings.ARE_PUBLIC_TICKETS_ENABLED,
@@ -159,7 +149,7 @@ export const ticketRouter = router({
           },
           location: {
             connect: {
-              id: input.locationId,
+              id: 1,
             },
           },
           createdBy: {
